@@ -29,24 +29,32 @@ const convertToJson = function(node, options) {
     if (node.child[tagname] && node.child[tagname].length > 1) {
       jObj[tagname] = [];
       for (var tag in node.child[tagname]) {
+        global.xmlParseFlag = global.xmlParseFlag + 1;
         jObj[tagname].push(convertToJson(node.child[tagname][tag], options));
       }
     } else {
       if(options.arrayMode === true){
+        global.xmlParseFlag = global.xmlParseFlag + 1;//解析标识+1
         const result = convertToJson(node.child[tagname][0], options)
         if(typeof result === 'object')
           jObj[tagname] = [ result ];
         else
           jObj[tagname] = result;
       }else if(options.arrayMode === "strict"){
+        global.xmlParseFlag = global.xmlParseFlag + 1;
         jObj[tagname] = [convertToJson(node.child[tagname][0], options) ];
       }else{
+        global.xmlParseFlag = global.xmlParseFlag + 1;
         jObj[tagname] = convertToJson(node.child[tagname][0], options);
       }
     }
   }
 
   //add value
+  let viObj = jObj;
+  if (typeof viObj === "object") {
+    viObj["pfIndex"] = global.xmlParseFlag;
+  }
   return jObj;
 };
 

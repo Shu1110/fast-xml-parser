@@ -7,9 +7,10 @@ const buildOptions = require('./util').buildOptions;
 const validator = require('./validator');
 
 exports.parse = function(xmlData, options, validationOption) {
+  global.xmlParseFlag = 0;
   if( validationOption){
     if(validationOption === true) validationOption = {}
-    
+
     const result = validator.validate(xmlData, validationOption);
     if (result !== true) {
       throw Error( result.err.msg)
@@ -53,11 +54,11 @@ function print(xmlNode, indentation){
             //console.log(indentation + " \""+index+"\" : [")
             print(item, indentation2);
           })
-          console.log(indentation + "],")  
+          console.log(indentation + "],")
         }else{
           console.log(indentation + " \""+key+"\" : {")
           print(node, indentation2);
-          console.log(indentation + "},")  
+          console.log(indentation + "},")
         }
       });
       console.log(indentation + "},")
