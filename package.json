@@ -1,27 +1,18 @@
 {
-  "name": "fast-xml-parser",
+  "name": "@dltech21/fast-xml-parser",
   "version": "3.17.4",
   "description": "Validate XML or Parse XML to JS/JSON very fast without C/C++ based libraries",
   "main": "./src/parser.js",
+  "private": false,
   "scripts": {
-    "test": "jasmine spec/*spec.js",
-    "unit": "jasmine",
-    "perf": "node ./benchmark/perfTest3.js",
-    "lint": "eslint src/*.js spec/*.js",
-    "bundle": "webpack && webpack --config webpack-prod.config.js",
-    "coverage": "istanbul cover -x \"cli.js\" -x \"spec/*spec.js\" jasmine spec/*spec.js;",
-    "coverage:check": "istanbul check-coverage --branch 90 --statement 90",
-    "postinstall": "node tasks/postinstall.js || exit 0",
-    "prettier": "prettier --write src/**/*.js",
-    "publish-please": "publish-please",
-    "prepublishOnly": "publish-please guard"
+    "test": "jasmine spec/*spec.js"
   },
   "bin": {
     "xml2js": "./cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NaturalIntelligence/fast-xml-parser"
+    "url": "https://github.com/dltech21/fast-xml-parser"
   },
   "keywords": [
     "fast",
@@ -49,25 +40,6 @@
     "html"
   ],
   "author": "Amit Gupta (https://amitkumargupta.work/)",
-  "contributors": [
-    {
-      "name": "Alfonso Muñoz-Pomer Fuentes",
-      "email": "amunoz@ebi.ac.uk",
-      "url": "https://github.com/alfonsomunozpomer"
-    },
-    {
-      "name": "Steve Reichenbach",
-      "url": "https://github.com/EyesOnlyNet"
-    },
-    {
-      "name": "Vohmyanin Sergey Vasilevich",
-      "url": "http://delagen.livejournal.com"
-    },
-    {
-      "name": "Andrew Udvare",
-      "url": "https://github.com/Tatsh"
-    }
-  ],
   "license": "MIT Modified",
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -86,9 +58,5 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },
-  "typings": "src/parser.d.ts",
-  "funding": {
-    "type": "paypal",
-    "url": "https://paypal.me/naturalintelligence"
-  }
+  "typings": "src/parser.d.ts"
 }
