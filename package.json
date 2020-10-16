@@ -1,6 +1,6 @@
 {
-  "name": "@dltech21/fast-xml-parser",
-  "version": "3.17.4",
+  "name": "ofd-xml-parser",
+  "version": "0.0.2",
   "description": "Validate XML or Parse XML to JS/JSON very fast without C/C++ based libraries",
   "main": "./src/parser.js",
   "private": false,
@@ -39,7 +39,7 @@
     "locale",
     "html"
   ],
-  "author": "Amit Gupta (https://amitkumargupta.work/)",
+  "author": "dltech21",
   "license": "MIT Modified",
   "devDependencies": {
     "@babel/core": "^7.10.2",

@@ -7,7 +7,6 @@ const buildOptions = require('./util').buildOptions;
 const validator = require('./validator');
 
 exports.parse = function(xmlData, options, validationOption) {
-  global.xmlParseFlag = 0;
   if( validationOption){
     if(validationOption === true) validationOption = {}
 
