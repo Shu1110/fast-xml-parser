@@ -173,7 +173,8 @@ const getTraversalObj = function(xmlData, options) {
   const xmlObj = new xmlNode('!xml');
   let currentNode = xmlObj;
   let textData = "";
-
+  //使用objSerialIndex记录每个节点的索引，避免多个节点转json后成为了数组，无法判断节点先后
+  let objSerialIndex = 0;
 //function match(xmlData){
   for(let i=0; i< xmlData.length; i++){
     const ch = xmlData[i];
@@ -204,6 +205,11 @@ const getTraversalObj = function(xmlData, options) {
           currentNode.child = []
           if (currentNode.attrsMap == undefined) { currentNode.attrsMap = {}}
           currentNode.val = xmlData.substr(currentNode.startIndex + 1, i - currentNode.startIndex - 1)
+        }
+        //如果该节点下没有子节点并且没有其他属性，则不添加objSerialIndex值，为了解决{ofd:DocID : 2309890}会变成{ofd:DocID:{#text:2309890, @_objSerialIndex:12}}的情况add by sxt
+        if (Object.keys(currentNode.child).length == 0 && Object.keys(currentNode.attrsMap).length == 1) {
+          let key = options.attributeNamePrefix + 'objSerialIndex';
+          delete(currentNode.attrsMap[key]);
         }
         currentNode = currentNode.parent;
         textData = "";
@@ -282,7 +288,10 @@ const getTraversalObj = function(xmlData, options) {
           }
 
           const childNode = new xmlNode(tagName, currentNode, '');
+
           if(tagName !== tagExp){
+            //没有子节点，并且有其他属性，可以添加objSerialIndex
+            tagExp = `objSerialIndex="${objSerialIndex}"` + tagExp;
             childNode.attrsMap = buildAttributesMap(tagExp, options);
           }
           currentNode.addChild(childNode);
@@ -292,12 +301,14 @@ const getTraversalObj = function(xmlData, options) {
           if (options.stopNodes.length && options.stopNodes.includes(childNode.tagname)) {
             childNode.startIndex=closeIndex;
           }
+          tagExp = `objSerialIndex="${objSerialIndex}"` + tagExp;
           if(tagName !== tagExp){
             childNode.attrsMap = buildAttributesMap(tagExp, options);
           }
           currentNode.addChild(childNode);
           currentNode = childNode;
         }
+        objSerialIndex++;
         textData = "";
         i = closeIndex;
       }
